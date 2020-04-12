@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PiWeb.Models;
 
 namespace PiWeb.Controllers
@@ -11,10 +12,17 @@ namespace PiWeb.Controllers
 
     public class HomeController : Controller
     {
+        private string testValue = "NotSet";
+        public HomeController(IConfiguration config)
+        {
+            testValue = config["testvalue"];
+
+        }
+
         [Route("/")]
         public IActionResult Index()
         {
-            return View();
+            return View(new IndexViewModel() { TestValue = testValue });
         }
 
         public IActionResult Privacy()
@@ -27,5 +35,10 @@ namespace PiWeb.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+    }
+
+    public class IndexViewModel
+    {
+        public string TestValue { get; set; }
     }
 }
