@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7 AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.3-buster-slim-arm32v7 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
 COPY ["PiWeb.csproj", ""]
 RUN dotnet restore "PiWeb.csproj"
